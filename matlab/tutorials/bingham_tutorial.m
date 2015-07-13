@@ -70,7 +70,6 @@ B.V = [0,0; 1,0; 0,1];
 n = 10;
 X = randn(n,4);
 X = X./repmat(sqrt(sum(X.^2,2)), [1,4]);
-
 % Fit a Bingham distribution to X
 B = bingham_fit(X);
 

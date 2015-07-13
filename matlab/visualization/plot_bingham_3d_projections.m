@@ -1,5 +1,9 @@
-function plot_bingham_3d_projections(V, Z, F)
+function plot_bingham_3d_projections(bing)
 % plot_bingham_3d_projections(V, Z, F)
+
+V = bing.V;
+Z = bing.Z;
+F = bing.F;
 
 
 [SX,SY,SZ] = sphere(30);
