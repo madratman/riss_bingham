@@ -36,7 +36,8 @@ for i=1:size(Q,1)
    ends = (v.*a)/2;
 %    ends = v; 
    quiver3(starts(:,1), starts(:,2), starts(:,3), ends(:,1), ends(:,2), ends(:,3), 0);
-    
+%    title(['B.V=' mat2str(B.V(:,1)) ',' B.V(1, 2) ',' B.V(1,3) ')'])
+
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -86,3 +87,5 @@ if nargin >= 2
    C = repmat(cmap(1,:), [n 1]); %cmap(round(1+63*P), :);
    plot_quaternions(Q, C, 1, 0);
 end
+
+

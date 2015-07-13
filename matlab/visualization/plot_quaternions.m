@@ -65,6 +65,9 @@ if plot_sphere
    hold off;
    subplot(2,1,2);
 end
+  xlabel( 'x' );
+            ylabel( 'y' );
+            zlabel( 'z' );
 hold off;
 
 
