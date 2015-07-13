@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
     printf("B(%d).V = [ ", c+1);
     for (i = 0; i < d; i++) {
       for (j = 0; j < d-1; j++)
-	printf("%f ", BM.B[c].V[j][i]);
+  printf("%f ", BM.B[c].V[j][i]);
       printf("; ");
     }
     printf("];\n\n");

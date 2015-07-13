@@ -1209,7 +1209,7 @@ void bingham_sample(double **X, bingham_t *B, int n)
     bingham_sample_uniform(X, B->d, n);
     return;
   }
-
+  
   bingham_stats(B);
 
   int burn_in = 10;
