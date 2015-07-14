@@ -1,3 +1,5 @@
+% TODO 9 out of 6000(for ex) aren't (manually) "classified"
+% Return the "outliers"
 function [face_1, face_2, face_3, face_4, face_5, face_6, face_1_init, face_2_init, face_3_init, face_4_init, face_5_init, face_6_init,total] = classify_quat_orientation(init_quat_clean, final_quat_clean, length)
 
 [face_1,face_2,face_3,face_4,face_5,face_6,total] = deal([]);

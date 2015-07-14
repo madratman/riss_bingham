@@ -507,6 +507,8 @@ void test_bingham_mixture_sample(int argc, char *argv[])
   double **X = new_matrix2(n, d);
   bingham_mixture_sample(X, &bmx[0], n);
 
+  // Fit a BMM to sampled points from a BMM => BinghamCeption!?
+  // This is just printed in terminal. Doesn't affect anything
   bingham_mix_t BM;
   bingham_cluster(&BM, X, n, d);
 
