@@ -1,15 +1,25 @@
--- DO NOT WRITE CODE OUTSIDE OF THE if-then-end SECTIONS BELOW!! (unless the code is a function definition)
+-- TODO make loops, In a hurry right now, so fuck you Lua and str_concat
 
 if (sim_call_type==sim_childscriptcall_initialization) then
     handle=simGetObjectHandle('Cuboid')
-    final_pose=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/quat.csv", "w");
-    final_pose_euler=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/euler.csv", "w");
-    count=0;
-    threshold = 360;
-    r2a = 180/math.pi;
-    a2r = math.pi/180;
-end
+    final_pose_1=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/quat_1.csv", "w");
+    final_pose_euler_1=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/euler_1.csv", "w");
+    final_pose_2=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/quat_2.csv", "w");
+    final_pose_euler_2=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/euler_2.csv", "w");
+    final_pose_3=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/quat_3.csv", "w");
+    final_pose_euler_3=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/euler_3.csv", "w");
+    final_pose_4=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/quat_4.csv", "w");
+    final_pose_euler_4=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/euler_4.csv", "w");
+    final_pose_5=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/quat_5.csv", "w");
+    final_pose_euler_5=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/euler_5.csv", "w");
+    final_pose_6=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/quat_6.csv", "w");
+    final_pose_euler_6=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_synthetic_cube/1/euler_6.csv", "w");
 
+    count=0;
+    threshold = 360*6;
+    r2d = 180/math.pi;
+    d2r = math.pi/180;
+end
 
 if (sim_call_type==sim_childscriptcall_actuation) then
     if count < threshold then 
@@ -20,45 +30,87 @@ if (sim_call_type==sim_childscriptcall_actuation) then
         position[1] =  0; 
         position[2] =  0;
         position[3] =  1;
+        simSetObjectPosition(handle, -1, position)
+
+        if count < 360 then
+            orientation[1] =  0;
+            orientation[2] =  0;
+            orientation[3] =  count*d2r;
+
+            simSetObjectOrientation(handle,-1,orientation)
+            
+            local orientation_get = simGetObjectOrientation(handle, -1)
+            local quaternion_get = simGetObjectQuaternion(handle, -1)
+
+            final_pose_1:write(quaternion_get[4], "," , quaternion_get[1], ",", quaternion_get[2], ",", quaternion_get[3], "\n")
+            final_pose_euler_1:write(r2d*orientation_get[1], ",", r2d*orientation_get[2], ",", r2d*orientation_get[3], "\n")
+
+        elseif count < 360*2 then
+            orientation[1] =  180*d2r;
+            orientation[2] =  0;
+            orientation[3] =  count*d2r;
+
+            simSetObjectOrientation(handle,-1,orientation)
+            
+            local orientation_get = simGetObjectOrientation(handle, -1)
+            local quaternion_get = simGetObjectQuaternion(handle, -1)
+
+            final_pose_2:write(quaternion_get[4], "," , quaternion_get[1], ",", quaternion_get[2], ",", quaternion_get[3], "\n")
+            final_pose_euler_2:write(r2d*orientation_get[1], ",", r2d*orientation_get[2], ",", r2d*orientation_get[3], "\n")
+
+        elseif count < 360*3 then
+            orientation[1] =  90*d2r;
+            orientation[2] =  count*d2r;
+            orientation[3] =  0;
+
+            simSetObjectOrientation(handle,-1,orientation)
+            
+            local orientation_get = simGetObjectOrientation(handle, -1)
+            local quaternion_get = simGetObjectQuaternion(handle, -1)
+
+            final_pose_3:write(quaternion_get[4], "," , quaternion_get[1], ",", quaternion_get[2], ",", quaternion_get[3], "\n")
+            final_pose_euler_3:write(r2d*orientation_get[1], ",", r2d*orientation_get[2], ",", r2d*orientation_get[3], "\n")
+       
+        elseif count < 360*4 then
+            orientation[1] =  270*d2r;
+            orientation[2] =  count*d2r;
+            orientation[3] =  0;
+
+            simSetObjectOrientation(handle,-1,orientation)
+            
+            local orientation_get = simGetObjectOrientation(handle, -1)
+            local quaternion_get = simGetObjectQuaternion(handle, -1)
+
+            final_pose_4:write(quaternion_get[4], "," , quaternion_get[1], ",", quaternion_get[2], ",", quaternion_get[3], "\n")
+            final_pose_euler_4:write(r2d*orientation_get[1], ",", r2d*orientation_get[2], ",", r2d*orientation_get[3], "\n")
         
-        if count<360 then
-            orientation[1] =  0;
-            orientation[2] =  0*a2r;
-            orientation[3] =  count*a2r;
+        elseif count < 360*5 then
+            orientation[1] =  90*d2r;
+            orientation[2] =  count*d2r;
+            orientation[3] =  90*d2r;
 
-        elseif  count<(360*2) then
-            orientation[1] =  0;
-            orientation[2] =  180*a2r;
-            orientation[3] =  count*a2r;
+            simSetObjectOrientation(handle,-1,orientation)
+            
+            local orientation_get = simGetObjectOrientation(handle, -1)
+            local quaternion_get = simGetObjectQuaternion(handle, -1)
 
-        elseif  count<(360*3) then
-            orientation[1] =  0;
-            orientation[2] =  180*a2r;
-            orientation[3] =  count*a2r;
+            final_pose_5:write(quaternion_get[4], "," , quaternion_get[1], ",", quaternion_get[2], ",", quaternion_get[3], "\n")
+            final_pose_euler_5:write(r2d*orientation_get[1], ",", r2d*orientation_get[2], ",", r2d*orientation_get[3], "\n")
 
-        elseif  count<(360*4) then
-            orientation[1] =  0;
-            orientation[2] =  180*a2r;
-            orientation[3] =  count*a2r;
+        elseif count < 360*6 then
+            orientation[1] =  90*d2r;
+            orientation[2] =  count*d2r;
+            orientation[3] =  270*d2r;
 
-        elseif  count<(360*5)then
-            orientation[1] =  0;
-            orientation[2] =  180*a2r;
-            orientation[3] =  count*a2r;
+            simSetObjectOrientation(handle,-1,orientation)
+            
+            local orientation_get = simGetObjectOrientation(handle, -1)
+            local quaternion_get = simGetObjectQuaternion(handle, -1)
 
-        elseif  count<(360*6) then
-            orientation[1] =  0;
-            orientation[2] =  180*a2r;
-            orientation[3] =  count*a2r;
+            final_pose_6:write(quaternion_get[4], "," , quaternion_get[1], ",", quaternion_get[2], ",", quaternion_get[3], "\n")
+            final_pose_euler_6:write(r2d*orientation_get[1], ",", r2d*orientation_get[2], ",", r2d*orientation_get[3], "\n")
+
         end
-        
-        simSetObjectPosition(handle,-1,position)
-        simSetObjectOrientation(handle,-1,orientation)
-
-        quat_test = simGetObjectQuaternion(handle, -1)
-        orientation_get = simGetObjectOrientation(handle, -1)
-        final_pose:write(quaternion[1], "," , quaternion[2], ",", quaternion[3], ",", quaternion[4], "\n")
-        final_pose_euler:write(r2a*orientation_get[1], ",", r2a*orientation_get[2], ",", r2a*orientation_get[3], "\n")
 
         count = count+1;
     end
@@ -74,8 +126,7 @@ end
 
 
 if (sim_call_type==sim_childscriptcall_cleanup) then
-    erlFile:close()
-
+   
 -- Put some restoration code here
 
 end
