@@ -87,5 +87,7 @@ int main(int argc, char *argv[])
     printf("B(%d).F = %f;\n\n", c+1, BM.B[c].F);
   }
 
+  save_bmx(&BM, 1, "test_cluster.txt");
+  
   return 0;
 }
