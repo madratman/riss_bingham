@@ -1,4 +1,4 @@
-function plot_quaternions_rotations(quat)
+function plot_quaternions_rotations(quat, color)
 %quat*v*quat' is a pure quaternion as well (coz v is pure)
 
 %   Rotate point (1;2;3) around vector (4;5;6) by an angle of pi/2
@@ -53,9 +53,13 @@ hold on;
 surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
 colormap(.5*gray+.5);
 for i = 1:size(quat, 2)
-	plot3(v2(1, i), v2(2, i), v2(3, i), '.', 'MarkerSize', 5); 
+	if nargin<2
+		plot3(v2(1, i), v2(2, i), v2(3, i), '.', 'MarkerSize', 5); 
+	else
+		plot3(v2(1, i), v2(2, i), v2(3, i), '.', 'MarkerSize', 5, 'color', color); 
+	end
 end
-plot3(v(1, 1), v(2, 1), v(3, 1), '.', 'MarkerSize', 30); 
+plot3(v(1, 1), v(2, 1), v(3, 1), '.', 'MarkerSize', 30, 'color', [0.5 0.3 1]); 
 xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
@@ -72,9 +76,11 @@ hold on;
 surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
 colormap(.5*gray+.5);
 for i = 1:size(quat, 2)
-	plot3(v3(1, i), v3(2, i), v3(3, i), '.', 'MarkerSize', 5); 
+	if nargin<2
+		plot3(v3(1, i), v3(2, i), v3(3, i), '.', 'MarkerSize', 5); 
+	end
 end
-plot3(v(1, 2), v(2, 2), v(3, 2), '.', 'MarkerSize', 30); 
+plot3(v(1, 2), v(2, 2), v(3, 2), '.', 'MarkerSize', 30, 'color', [0.5 0.3 1]); 
 xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
@@ -91,9 +97,11 @@ hold on;
 surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
 colormap(.5*gray+.5);
 for i = 1:size(quat, 2)
-	plot3(v4(1, i), v4(2, i), v4(3, i), '.', 'MarkerSize', 5);     
+	if nargin<2
+		plot3(v4(1, i), v4(2, i), v4(3, i), '.', 'MarkerSize', 5);     
+	end
 end
-plot3(v(1, 3), v(2, 3), v(3, 3), '.', 'MarkerSize', 30); 
+plot3(v(1, 3), v(2, 3), v(3, 3), '.', 'MarkerSize', 30, 'color', [0.5 0.3 1]); 
 xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
