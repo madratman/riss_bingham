@@ -496,7 +496,7 @@ void test_bingham_pdf(int argc, char *argv[])
 void test_bingham_mixture_sample(int argc, char *argv[])
 {
   if (argc < 3) {
-    printf("usage: %s <bmx_file> <n>\n", argv[0]);
+    printf("usage: %s <bmx_file> <n> <outfile>\n", argv[0]);
     return;
   }
 
@@ -515,14 +515,13 @@ void test_bingham_mixture_sample(int argc, char *argv[])
     printf("---------------------------\n");
   }
 
-  for (i = 0; i < n; i++) {
-    for (j = 0; j < d; j++)
-      printf("%.4f, ", X[i][j]);
-    printf("\n");
-  }
+  // for (i = 0; i < n; i++) {
+  //   for (j = 0; j < d; j++)
+  //     printf("%.4f, ", X[i][j]);
+  //   printf("\n");
+  // }
 
-  FILE *fp;
-  fp=fopen("test_sampled_quat.txt", "w");
+  FILE *fp = fopen(argv[3], "w");
   for (i = 0; i < n; i++) {
     for (j = 0; j < d; j++)
       fprintf(fp, "%.4f, ", X[i][j]);
