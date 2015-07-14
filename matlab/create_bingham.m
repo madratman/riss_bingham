@@ -1,8 +1,9 @@
-function B = create_bingham(d, V, Z)
+function B = create_bingham(d, V, Z, F, dF)
 
+% use F and dF as parameters
 B = struct();
 B.d = d;
 B.Z = Z;
 B.V = V;
-
-[B.F B.dF] = bingham_F(B.Z);
+B.F = F;
+B.dF = dF
