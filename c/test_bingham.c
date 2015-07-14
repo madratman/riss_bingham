@@ -500,7 +500,7 @@ void test_bingham_mixture_sample(int argc, char *argv[])
     return;
   }
 
-  int i, k, d = 4;
+  int i, j, k, d = 4;
   bingham_mix_t *bmx = load_bmx(argv[1], &k);
   int n = atoi(argv[2]);
 
@@ -513,6 +513,20 @@ void test_bingham_mixture_sample(int argc, char *argv[])
   for (i = 0; i < BM.n; i++) {
     print_bingham(&BM.B[i]);
     printf("---------------------------\n");
+  }
+
+  for (i = 0; i < n; i++) {
+    for (j = 0; j < d; j++)
+      printf("%.4f, ", X[i][j]);
+    printf("\n");
+  }
+
+  FILE *fp;
+  fp=fopen("test_sampled_quat.txt", "w");
+  for (i = 0; i < n; i++) {
+    for (j = 0; j < d; j++)
+      fprintf(fp, "%.4f, ", X[i][j]);
+    fprintf(fp, "\n");
   }
 }
 
@@ -1225,18 +1239,18 @@ int main(int argc, char *argv[])
   //test_bingham_stats(argc, argv);
   //test_bingham_KL_divergence(argc, argv);
 
-  //test_bingham_mixture_mult(argc, argv);
+  // test_bingham_mixture_mult(argc, argv);
   //test_bingham_mixture_thresh_peaks(argc, argv);
   //test_bingham_mult(argc, argv);
   //test_bingham_F_lookup_3d(argc, argv);
 
-  //test_bingham_mixture_sample(argc, argv);
-  test_bingham_sample(argc, argv);
+  test_bingham_mixture_sample(argc, argv);
+  // test_bingham_sample(argc, argv);
   //test_bingham_sample_pmf(argc, argv);
   //test_bingham_sample_ridge(argc, argv);
 
-  //test_fit_quaternions(argc, argv);
-  //test_bingham_discretize(argc, argv);
+  // test_fit_quaternions(argc, argv);
+  // test_bingham_discretize(argc, argv);
   //test_bingham(argc, argv);
   //compute_bingham_constants(argc, argv);
   //test_bingham_pdf(argc, argv);
