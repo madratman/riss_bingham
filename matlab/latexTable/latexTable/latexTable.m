@@ -153,7 +153,7 @@ if input.tableBorders
 else
     header = ['\begin{tabular}{',repmat(input.tableColumnAlignment,1,size(C,2)),'}'];
 end
-latex = {'\begin{table}[H!]';'\centering';header};
+latex = {'\begin{table}[H]';'\parbox{.45\linewidth}{';'\centering';header};
 
 % generate table
 for i=1:size(C,1)
@@ -179,7 +179,7 @@ end
 
 % make table footer lines:
 footer = {'\end{tabular}';['\caption{',input.tableCaption,'}']; ...
-    ['\label{table:',input.tableLabel,'}'];'\end{table}'};
+    ['\label{table:',input.tableLabel,'}}'];'\end{table}'};
 if input.tableBorders
     latex = [latex;{hLine};footer];
 else

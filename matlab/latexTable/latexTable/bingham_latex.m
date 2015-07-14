@@ -8,14 +8,14 @@ fprintf('Example 1: using an array as data input\n\n');
 % numeric values you want to tabulate:
 % this field has to be an array or a MATLAB table
 % in this example we use an array
-input.data = bing.V
+input.data = [bing.V; bing.Z]
 % bing_hex_pyr_face_1.V;
 % Optional fields:
 
 % Set column labels (use empty string for no label):
 input.tableColLabels = {'$V_1$','$V_2$','$V_3$'};
 % Set row labels (use empty string for no label):
-input.tableRowLabels = {'$q_0$','$q_1$','$q_2$','$q_3$'};
+input.tableRowLabels = {'$q_0$','$q_1$','$q_2$','$q_3$', '$Z$'};
 
 % Switch transposing/pivoting your table:
 input.transposeTable = 1;
@@ -43,7 +43,8 @@ input.tableColumnAlignment = 'c';
 input.tableBorders = 1;
 
 % LaTex table caption:
-input.tableCaption = bing;
+input.tableCaption = inputname(1);
+%caption is same as the variable name of the argument
 
 % LaTex table label:
 input.tableLabel = 'MyTableLabel';
