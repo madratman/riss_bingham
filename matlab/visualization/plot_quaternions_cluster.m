@@ -89,9 +89,13 @@ elseif strcmp(flag_plot_type, 'rotations')
 %     vector = rand(3,1);
     for i = 1:length(quat_cluster)
     i
-    figure;
+%     figure;
 %     subplot(ceil(size(quat_cluster,2)/2), 2, i);
-    eval(['plot_quaternions_rotations(cell2mat(quat_cluster(' num2str(i) ''')));'])
+    if length(quat_cluster) < 8;
+        eval(['plot_quaternions_rotations(cell2mat(quat_cluster(' num2str(i) ''')), color_cell{' num2str(i) '});'])
+    else
+        eval(['plot_quaternions_rotations(cell2mat(quat_cluster(' num2str(i) ''')), rand(1,3));'])
+    end
     set(gcf,'units','normalized','outerposition',[0 0 0.5 0.333])
     end
     

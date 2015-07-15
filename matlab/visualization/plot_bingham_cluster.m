@@ -86,7 +86,7 @@ elseif strcmp(flag_plot_type, 'rotations')
 %     vector = rand(3,1);
     for i = 1:size(bingham_cluster, 2)
     i
-    figure;
+%     figure;
 %     subplot(ceil(size(bingham_cluster,2)/2), 2, i);
     if size(bingham_cluster, 2) < 8;
         eval(['plot_bingham_rotations(bingham_cluster(' num2str(i) '), no_of_samples, color_cell{' num2str(i) '});'])

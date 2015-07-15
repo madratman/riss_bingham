@@ -18,14 +18,14 @@ function plot_quaternions_rotations(quat, color)
 quat = quat'
 % v = [1 0 0; 0 1 0; 0 0 1]';
 
-rt_2 = 1/sqrt(2)
+rt_2 = 1/sqrt(2);
 rt_3 = 1/sqrt(3);
 rt_6 = 1/sqrt(6);
 rt_8 = 1/sqrt(8);
 % v = [rt_3 rt_3 rt_3; rt_3 -rt_3 rt_3; rt_3 rt_3 -rt_3]';
 % v = [rt_6 rt_3 rt_2; -rt_3 rt_6 -rt_2; rt_2 -rt_3 rt_8] 
-v = [rt_6 rt_3 rt_2; -rt_3 rt_2 -rt_6; rt_2 -rt_6 rt_3] 
-v = v'
+v = [rt_6 rt_3 rt_2; -rt_3 rt_2 -rt_6; rt_2 -rt_6 rt_3];
+v = v';
 v2 = zeros(3, size(quat, 2));
 v3 = zeros(3, size(quat, 2));
 v4 = zeros(3, size(quat, 2));
@@ -59,7 +59,7 @@ for i = 1:size(quat, 2)
 		plot3(v2(1, i), v2(2, i), v2(3, i), '.', 'MarkerSize', 5, 'color', color); 
 	end
 end
-plot3(v(1, 1), v(2, 1), v(3, 1), '.', 'MarkerSize', 30, 'color', [0.5 0.3 1]); 
+plot3(v(1, 1), v(2, 1), v(3, 1), '.', 'MarkerSize', 50, 'color', 'y'); 
 xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
@@ -78,9 +78,11 @@ colormap(.5*gray+.5);
 for i = 1:size(quat, 2)
 	if nargin<2
 		plot3(v3(1, i), v3(2, i), v3(3, i), '.', 'MarkerSize', 5); 
+    else
+    	plot3(v3(1, i), v3(2, i), v3(3, i), '.', 'MarkerSize', 5, 'color', color); 
 	end
 end
-plot3(v(1, 2), v(2, 2), v(3, 2), '.', 'MarkerSize', 30, 'color', [0.5 0.3 1]); 
+plot3(v(1, 2), v(2, 2), v(3, 2), '.', 'MarkerSize', 50, 'color', 'y'); 
 xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
@@ -98,10 +100,12 @@ surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
 colormap(.5*gray+.5);
 for i = 1:size(quat, 2)
 	if nargin<2
-		plot3(v4(1, i), v4(2, i), v4(3, i), '.', 'MarkerSize', 5);     
-	end
+		plot3(v4(1, i), v4(2, i), v4(3, i), '.', 'MarkerSize', 5);  
+    else
+        plot3(v4(1, i), v4(2, i), v4(3, i), '.', 'MarkerSize', 5, 'color', color);
+    end
 end
-plot3(v(1, 3), v(2, 3), v(3, 3), '.', 'MarkerSize', 30, 'color', [0.5 0.3 1]); 
+plot3(v(1, 3), v(2, 3), v(3, 3), '.', 'MarkerSize', 50, 'color', 'y'); 
 xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
