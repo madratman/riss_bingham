@@ -500,7 +500,7 @@ void test_bingham_mixture_sample(int argc, char *argv[])
     return;
   }
 
-  int i, j, k, d = 4;
+  int i, j, k, d = 5;//4th column for component
   bingham_mix_t *bmx = load_bmx(argv[1], &k);
   int n = atoi(argv[2]);
 
@@ -517,15 +517,15 @@ void test_bingham_mixture_sample(int argc, char *argv[])
     printf("---------------------------\n");
   }
 
-  // for (i = 0; i < n; i++) {
-  //   for (j = 0; j < d; j++)
-  //     printf("%.4f, ", X[i][j]);
-  //   printf("\n");
-  // }
+  for (i = 0; i < n; i++) {
+    for (j = 0; j < d+1; j++)
+      printf("%.4f, ", X[i][j]);
+    printf("\n");
+  }
 
   FILE *fp = fopen(argv[3], "w");
   for (i = 0; i < n; i++) {
-    for (j = 0; j < d; j++)
+    for (j = 0; j < d+1; j++)//d+1 is for the component index
       fprintf(fp, "%.4f, ", X[i][j]);
     fprintf(fp, "\n");
   }
