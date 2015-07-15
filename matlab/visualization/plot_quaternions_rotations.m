@@ -15,7 +15,7 @@ function plot_quaternions_rotations(quat, color)
 %The target is to use a point for which if I plot quat_syn_solid_net,
 %I should be able to visualize the distinct patterns for each "cluster" 
 % of quaternions corresponding to all orientations of a face 
-quat = quat'
+quat = quat';
 % v = [1 0 0; 0 1 0; 0 0 1]';
 
 rt_2 = 1/sqrt(2);
@@ -44,7 +44,7 @@ for i = 1:size(quat, 2)
 %     c = cmap(round(1+63*a/(2*pi)), :);
 %     plot3(v(1), v(2), v(3), '.', 'MarkerSize', 15, 'Color', c); 
 end
-v4'
+v4';
 % v3'
 % v2'
 subplot(1, 3, 1)
