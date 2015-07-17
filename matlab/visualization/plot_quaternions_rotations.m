@@ -64,8 +64,9 @@ xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
 
-az = 135;
-el = 30;
+% az = 135;el = 30;
+az = 0; el = 0;
+
 view(az, el);
 axis vis3d;
 axis equal;
@@ -87,8 +88,9 @@ xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
 
-az = 135;
-el = 30;
+% az = 135;el = 30;
+az = 0; el = 0;
+
 view(az, el);
 axis vis3d;
 axis equal;
@@ -110,8 +112,8 @@ xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
 
-az = 135;
-el = 30;
+% az = 135;el = 30;
+az = 0; el = 0;
 view(az, el);
 axis vis3d;
 axis equal;

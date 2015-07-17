@@ -10,8 +10,7 @@ direction = [];
 % surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
 % colormap(.5*gray+.5);
 
-axis vis3d;
-axis equal;
+
 hold on;
 origin  = zeros(1000, 3);
 for i=1:size(Q,1)
@@ -38,6 +37,11 @@ for i=1:size(Q,1)
 end
 % axis image;
 % hold off;
+az=135;
+el = 30;
 
+view(az, el);
+axis vis3d;
+axis equal;
 
 fprintf('\n');

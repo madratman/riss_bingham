@@ -18,8 +18,7 @@ if plot_sphere
     surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
     colormap(.5*gray+.5);
 end
-axis vis3d;
-axis equal;
+
 hold on;
 
 if plot_sphere
@@ -69,6 +68,12 @@ end
             ylabel( 'y' );
             zlabel( 'z' );
 hold off;
+az = 135;
+el = 30;
+view(az, el);
+axis vis3d;
+axis equal;
+set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
 
 fprintf('\n');

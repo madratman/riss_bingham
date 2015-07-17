@@ -24,15 +24,3 @@ for j = 1:length(bingham_cluster)
     length(to_plot)
     plot_quaternions_rotations(to_plot, color_cell{j});
 end
-%     
-% for i = 1:size(bingham_cluster, 2)
-%     i
-% %     figure;
-%     if size(bingham_cluster, 2) < 8;
-%         eval(['plot_quaternions_rotations(quat(1:n_sample_per_comp(i)),  no_of_samples, color_cell{' num2str(i) '});'])
-%     else
-%         eval(['plot_quaternions_rotations(bingham_cluster(' num2str(i) '), no_of_samples, rand(1,3));'])
-%     end
-%     set(gcf,'units','normalized','outerposition',[0 0 0.5 0.333])
-% end
-%     
