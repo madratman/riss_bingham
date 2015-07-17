@@ -1,4 +1,4 @@
-function [q_1, q_2, q_3, q_4] =  plot_quaternion_projections(quat)
+function [q_1, q_2, q_3, q_4] =  plot_quaternion_projections(quat, flag_plot_type)
 
 n = size(quat, 1)
 
@@ -16,17 +16,31 @@ end
 % First, create 4  figures with four different graphs (each with  a 
 % colorbar):
 figure(1)
-plot_quaternions_length(q_1)
+if strcmp(flag_plot_type, 'length')
+    plot_quaternions_length(q_1)
+elseif strcmp(flag_plot_type, 'sphere')
+    plot_quaternions_sphere(q_1)
+end
+
 % colorbar
 figure(2)
-plot_quaternions_length(q_2)
-% colorbar
+if strcmp(flag_plot_type, 'length')
+    plot_quaternions_length(q_1)
+elseif strcmp(flag_plot_type, 'sphere')
+    plot_quaternions_sphere(q_1)
+end% colorbar
 figure(3)
-plot_quaternions_length(q_3)
-% colorbar
+if strcmp(flag_plot_type, 'length')
+    plot_quaternions_length(q_1)
+elseif strcmp(flag_plot_type, 'sphere')
+    plot_quaternions_sphere(q_1)
+end% colorbar
 figure(4)
-plot_quaternions_length(q_4)
-% colorbar
+if strcmp(flag_plot_type, 'length')
+    plot_quaternions_length(q_1)
+elseif strcmp(flag_plot_type, 'sphere')
+    plot_quaternions_sphere(q_1)
+end% colorbar
 % Now create destination graph
 figure(5)
 ax = zeros(4,1);
@@ -49,7 +63,7 @@ for i = 1:4
     delete(ax(i));
 end
 figure(5)
-close(figure(1))
-close(figure(2))
-close(figure(3))
-close(figure(4))
+% close(figure(1))
+% close(figure(2))
+% close(figure(3))
+% close(figure(4))
