@@ -23,8 +23,8 @@ if (sim_call_type==sim_childscriptcall_actuation) then
         local orientation=simGetObjectOrientation(handle, -1)
 
         if (count%100==0) then
-            
-            if count ~= 0 then 
+			
+			if count ~= 0 then 
                 -- no final pose written at the beginning of the simulation 
                final_pose:write(count/100,",", quaternion[4], ","
                     , quaternion[1], ",", quaternion[2], ",", quaternion[3], "\n")
@@ -35,6 +35,7 @@ if (sim_call_type==sim_childscriptcall_actuation) then
             position[2] =  math.random();
             position[3] =  0.4+math.random();
 
+
             --because setting random orientation via euler angles is easier than setting it via random quaternions
             orientation[1] =  math.random(-180,180)*math.pi/180.0;
             orientation[2] =  math.random(-180,180)*math.pi/180.0;
@@ -43,15 +44,15 @@ if (sim_call_type==sim_childscriptcall_actuation) then
             simSetObjectPosition(handle,-1,position);
             simSetObjectOrientation(handle,-1,orientation);
             quat_get = simGetObjectQuaternion(handle, -1);
-            -- euler_test = simGetObjectOrientation(handle, -1)
+            -- euler_get = simGetObjectOrientation(handle, -1)
 
             --last value is garbage
             if count < threshold_final_pose then
                 init_pose:write(count/100,",", quat_get[4], ",", quat_get[1], ",", quat_get[2], ",", quat_get[3], "\n")
-            end
-               
+                -- init_pose_euler:write(position[1], ",", position[2], ",", position[3], ",", r2a*euler_get[1], ","
+                --     , r2a*euler_get[2], ",", r2a*euler_get[3], "\n")
+			end               
         end
-
         count = count+1;
     end
 end
