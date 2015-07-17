@@ -3,15 +3,15 @@
 
 % TODO WARNING. Discrepency in naming scheme. face_i_init v/s face_init_i.
 % Resolve to correct confusion
-for i=1:6
-    eval(['face_init_' num2str(i) '_sampled_from_fitted_BMM = importdata(''face_' num2str(i) '_init_quat_samples.csv'');'])
-    eval(['face_final_' num2str(i) '_sampled_from_fitted_BMM = importdata(''face_' num2str(i) '_final_quat_samples.csv'');'])
-end
+% for i=1:6
+%     eval(['face_init_' num2str(i) '_sampled_from_fitted_BMM = importdata(''face_' num2str(i) '_init_quat_samples.csv'');'])
+%     eval(['face_final_' num2str(i) '_sampled_from_fitted_BMM = importdata(''face_' num2str(i) '_final_quat_samples.csv'');'])
+% end
 
 for k=1:2
     for j=1:6
         BM_result = [];
-       
+        BM_result_weights = []
         if (k==1)
             eval(['BM_current = importdata(''face_' num2str(j) '_init_BM.txt'');'])
         else
@@ -19,12 +19,12 @@ for k=1:2
         end
         
         for i = 1:size(BM_current.data, 1)
-
+            test = BM_current.data
             V = [BM_current.data(i,12) BM_current.data(i,16) BM_current.data(i,20);
                  BM_current.data(i,13) BM_current.data(i,17) BM_current.data(i,21);
                  BM_current.data(i,14) BM_current.data(i,18) BM_current.data(i,22);
                  BM_current.data(i,15) BM_current.data(i,19) BM_current.data(i,23);]
-
+    
             Z = [BM_current.data(i,9) BM_current.data(i,10) BM_current.data(i,11)];
 
             F = BM_current.data(i,5)
@@ -42,16 +42,22 @@ for k=1:2
 
             %append the Bingham to BMM
             %WARNING TODO appending in this way is not memory efficient. This is low priority for now though, considering the max size will be 10-15.
-            BM_result = [BM_result; BM_current_eval]
+            BM_result = [BM_result; BM_current_eval];
+            BM_current_weights = BM_current.data(i,3)
+            BM_result_weights = [BM_result_weights; BM_current_weights];
         end
 
         %for using the visualization functions. 
         BM_result = BM_result';
+        BM_result_weights = BM_result_weights';
         
         if (k==1)
             eval(['face_init_' num2str(j) '_fitted_BMM = BM_result;'])
+            eval(['face_init_' num2str(j) '_fitted_BMM_weights = BM_result_weights;'])
+
         else
             eval(['face_final_' num2str(j) '_fitted_BMM = BM_result;'])
+            eval(['face_final_' num2str(j) '_fitted_BMM_weights = BM_result_weights;'])
         end
         
     end
