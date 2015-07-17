@@ -1,6 +1,6 @@
 % TODO 9 out of 6000(for ex) aren't (manually) "classified"
 % Return the "outliers"
-function [face_1, face_2, face_3, face_4, face_5, face_6, face_1_init, face_2_init, face_3_init, face_4_init, face_5_init, face_6_init,total] = classify_quat_orientation(init_quat_clean, final_quat_clean, length)
+function [face_2, face_3, face_4, face_5, face_6, face_1, face_2_init, face_3_init, face_4_init, face_5_init, face_6_init, face_1_init, total] = classify_quat_orientation(init_quat_clean, final_quat_clean, length)
 
 [face_1,face_2,face_3,face_4,face_5,face_6,total] = deal([]);
 [face_1_init,face_2_init,face_3_init,face_4_init,face_5_init,face_6_init] = deal([]);
@@ -8,38 +8,38 @@ function [face_1, face_2, face_3, face_4, face_5, face_6, face_1_init, face_2_in
 for(i=1:size(final_quat_clean, 1))
 	%final_quat_clean = [0 _ _ 0]. Corresponds to [+-180  0  ___] roll pitch yaw.
 	if(final_quat_clean(i,1)==0 && final_quat_clean(i,4)==0)
-		face_1 = [face_1; final_quat_clean(i,:)];
-		face_1_init = [face_1_init; init_quat_clean(i, :)];
-	end
-
-	%final_quat_clean = [x x y y]
-	if(final_quat_clean(i,1)==final_quat_clean(i,2) && final_quat_clean(i,3)==final_quat_clean(i,4))
-		face_2 = [face_2; final_quat_clean(i,:)];
-		face_2_init = [face_2_init; init_quat_clean(i, :)];
-	end
-
-	%final_quat_clean = [x -x y -y]
-	if(final_quat_clean(i,1)== -final_quat_clean(i,2) && final_quat_clean(i,3)== -final_quat_clean(i,4))
 		face_3 = [face_3; final_quat_clean(i,:)];
 		face_3_init = [face_3_init; init_quat_clean(i, :)];
 	end
 
+	%final_quat_clean = [x x y y]
+	if(final_quat_clean(i,1)==final_quat_clean(i,2) && final_quat_clean(i,3)==final_quat_clean(i,4))
+		face_4 = [face_4; final_quat_clean(i,:)];
+		face_4_init = [face_4_init; init_quat_clean(i, :)];
+	end
+
+	%final_quat_clean = [x -x y -y]
+	if(final_quat_clean(i,1)== -final_quat_clean(i,2) && final_quat_clean(i,3)== -final_quat_clean(i,4))
+		face_5 = [face_5; final_quat_clean(i,:)];
+		face_5_init = [face_5_init; init_quat_clean(i, :)];
+	end
+
 	%final_quat_clean = [x y -x y]
 	if(final_quat_clean(i,1)== -final_quat_clean(i,3) && final_quat_clean(i,2)==final_quat_clean(i,4))
-		face_4 = [face_4; final_quat_clean(i,:)];
-		face_4_init = [face_4_init; init_quat_clean(i, :)];	
+		face_6 = [face_6; final_quat_clean(i,:)];
+		face_6_init = [face_6_init; init_quat_clean(i, :)];	
 	end
 
 	%final_quat_clean = [x y x -y]
 	if(final_quat_clean(i,1)== final_quat_clean(i,3) && final_quat_clean(i,2)== -final_quat_clean(i,4))
-		face_5 = [face_5; final_quat_clean(i,:)];
-		face_5_init = [face_5_init; init_quat_clean(i, :)];
+		face_1 = [face_1; final_quat_clean(i,:)];
+		face_1_init = [face_1_init; init_quat_clean(i, :)];
     end
     
     %final_quat_clean = [_ 0 0 _]. Corresponds to [0 0 ___] roll pitch yaw
 	if(final_quat_clean(i,2)== 0 && final_quat_clean(i,3)== 0)
-		face_6 = [face_6; final_quat_clean(i,:)];
-		face_6_init = [face_6_init; init_quat_clean(i, :)];
+		face_2 = [face_2; final_quat_clean(i,:)];
+		face_2_init = [face_2_init; init_quat_clean(i, :)];
     end
 end
 
