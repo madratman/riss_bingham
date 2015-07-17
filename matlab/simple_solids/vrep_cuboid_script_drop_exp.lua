@@ -2,10 +2,10 @@
 
 if (sim_call_type==sim_childscriptcall_initialization) then
     handle=simGetObjectHandle('Cuboid')
-    init_pose=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_cube_0.35/1/init_pose.csv", "w");
-    final_pose=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_cube_0.35/1/final_pose.csv", "w");
-    init_pose_euler=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_cube_0.35/1/init_pose_euler.csv", "w");
-    final_pose_euler=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_cube_0.35/1/final_pose_euler.csv", "w");
+    init_pose=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_exp_cube_0.35/4_small_drop/init_pose.csv", "w");
+    final_pose=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_exp_cube_0.35/4_small_drop/final_pose.csv", "w");
+    init_pose_euler=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_cube_0.35/4_small_drop/init_pose_euler.csv", "w");
+    final_pose_euler=io.open("/home/ratnesh/projects/riss/windows_riss_code/bingham/matlab/simple_solids/data/vrep_cube_0.35/4_small_drop/final_pose_euler.csv", "w");
 
     count=0;
     -- debug=0;
@@ -26,15 +26,14 @@ if (sim_call_type==sim_childscriptcall_actuation) then
             
             if count ~= 0 then 
                 -- no final pose written at the beginning of the simulation 
-                final_pose:write(count/100,",", position[1], ",", position[2], ",", position[3], ",", quaternion[1], ","
-                    , quaternion[2], ",", quaternion[3], ",", quaternion[4], "\n")
-                final_pose_euler:write(position[1], ",", position[2], ",", position[3], ",", r2a*orientation[1], ","
-                    , r2a*orientation[2], ",", r2a*orientation[3], "\n")
+               final_pose:write(count/100,",", quaternion[4], ","
+                    , quaternion[1], ",", quaternion[2], ",", quaternion[3], "\n")
             end
+   
 
             position[1] =  math.random(); 
             position[2] =  math.random();
-            position[3] =  2.5+math.random();
+            position[3] =  0.4+math.random();
 
             --because setting random orientation via euler angles is easier than setting it via random quaternions
             orientation[1] =  math.random(-180,180)*math.pi/180.0;
@@ -42,18 +41,15 @@ if (sim_call_type==sim_childscriptcall_actuation) then
             orientation[3] =  math.random(-180,180)*math.pi/180.0;
 
             simSetObjectPosition(handle,-1,position);
-            simSetObjectOrientation(handle,-1,orientation)
-            quat_test = simGetObjectQuaternion(handle, -1)
+            simSetObjectOrientation(handle,-1,orientation);
+            quat_get = simGetObjectQuaternion(handle, -1);
             -- euler_test = simGetObjectOrientation(handle, -1)
 
             --last value is garbage
             if count < threshold_final_pose then
-                init_pose:write(count/100, ",",position[1], ",", position[2], ",", position[3], ",", quat_test[1], ","
-                    , quat_test[2], ",", quat_test[3], ",", quat_test[4], "\n")
-                init_pose_euler:write(position[1], ",", position[2], ",", position[3], ",", r2a*orientation[1], ","
-                    , r2a*orientation[2], ",", r2a*orientation[3], "\n")
+                init_pose:write(count/100,",", quat_get[4], ",", quat_get[1], ",", quat_get[2], ",", quat_get[3], "\n")
             end
-         
+               
         end
 
         count = count+1;
@@ -69,7 +65,6 @@ end
 
 
 if (sim_call_type==sim_childscriptcall_cleanup) then
-    erlFile:close()
 
 -- Put some restoration code here
 
