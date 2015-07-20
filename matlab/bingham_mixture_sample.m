@@ -12,36 +12,36 @@ if no_of_samples==1
 
 elseif no_of_samples<100
     for i=1:no_of_samples
-        i = pmf_sample(BM_weights);
-        X(i,:) = bingham_mixture_sample(BM(i),1);
-        ind(i) = i;
+        j = pmf_sample(BM_weights);
+        X(i,:) = bingham_mixture_sample(BM(j),1,1);
+        ind(i) = j;
     end
 else  % no_of_samples >= 100
 
-    X = [];
-    no_of_components = length(BM);
+    no_of_components = length(BM)
     for i=1:no_of_components
         no_of_samples_from_component(i) = round(no_of_samples*BM_weights(i));
     end
     no_of_estimated_samples = sum(no_of_samples_from_component);
-    
+    no_of_samples_from_component
     if (no_of_estimated_samples<no_of_samples)
-        for i=no_of_estimated_samples:no_of_samples
+        for i=no_of_estimated_samples:(no_of_samples-1)
             i;
             j = pmf_sample(BM_weights);
             no_of_samples_from_component(j) = no_of_samples_from_component(j) + 1;
         end
     
     elseif (no_of_estimated_samples>no_of_samples)
-        for i=no_of_samples:no_of_estimated_samples
+        for i=(no_of_samples-1):no_of_estimated_samples
             i;
             j = pmf_sample(BM_weights);
             no_of_samples_from_component(j) = no_of_samples_from_component(j) - 1;
         end
     end
-    
-    for i=1:no_of_components
-        X = [X; bingham_sample(BM(i), no_of_samples_from_component(i))];
+    no_of_samples_from_component
+    X = [];
+    for i=1:1
+        X = [X; bingham_sample(BM(i), no_of_samples_from_component(i))]
         i;
         no_of_samples_from_component(i);
     end
@@ -69,4 +69,4 @@ else  % no_of_samples >= 100
 end
 
 X2 = ind;
-X3 = no_of_samples_from_component;
+% X3 = no_of_samples_from_component;
