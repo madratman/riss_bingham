@@ -21,31 +21,50 @@ d = length(x);
 t = bingham_pdf_unnormalized(x',B);  % target
 p = acgpdf_pcs(x',z,V);  % proposal
 
-X2 = acgrnd_pcs(z, V, n*sample_rate+burn_in);
+% X2 = acgrnd_pcs(z, V, n*sample_rate+burn_in);
+X2 = acgrnd_pcs(z, V, 1000*n);
 T2 = bingham_pdf_unnormalized(X2,B);
 P2 = acgpdf_pcs(X2,z,V);
 
 num_accepts = 0;
-for i=1:n*sample_rate+burn_in
+X=[];
+% for i=1:n*sample_rate+burn_inr
+i = 1;
+for i=1:1000*n
+    if(size(X(burn_in+1:sample_rate:end,:), 1) == n)
+        break
+    end
+    i;
+%     if size(X(burn_in+1:sample_rate:end,:),1) == n
+%         break
+%     end
     x2 = X2(i,:);
-    
     x2 = x2/norm(x2);
     t2 = T2(i); %bingham_pdf_unnormalized(x2,B);
     p2 = P2(i); %acgpdf_pcs(x2,z,V);
     a1 = t2 / t;
     a2 = p / p2;
     a = a1*a2;
-    if a > rand()
+    if (a > rand())
         x = x2;
         p = p2;
         t = t2;
         num_accepts = num_accepts + 1;
+        X = [X;x];
+        i ;
+    %%%%debugging
+%     else 
+%         if i > burn_in+1
+%             i;
+%         end
+    %%%%debugging
     end
+    i = i+1;
     %end
     %if x(1) < 0
     %    x = -x;
     %end
-    X(i,:) = x;
+%     X(i,:) = x;
 end
 
 %accept_rate = num_accepts / (n*sample_rate + burn_in)
