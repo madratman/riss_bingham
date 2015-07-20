@@ -1,7 +1,7 @@
 function B = create_bingham(d, V, Z, F, dF)
 
 % use F and dF as parameters
-B = struct();
+B = struct('d',d);
 B.d = d;
 B.Z = Z;
 B.V = V;

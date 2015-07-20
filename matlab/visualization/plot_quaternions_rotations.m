@@ -44,10 +44,9 @@ for i = 1:size(quat, 2)
 %     c = cmap(round(1+63*a/(2*pi)), :);
 %     plot3(v(1), v(2), v(3), '.', 'MarkerSize', 15, 'Color', c); 
 end
-v4';
-% v3'
-% v2'
-subplot(1, 3, 1)
+
+
+subplot_1 = subplot(2, 3, 1)
 hold on;
 [SX,SY,SZ] = sphere(30);
 surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
@@ -64,14 +63,19 @@ xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
 
-% az = 135;el = 30;
 az = 0; el = 0;
-
 view(az, el);
 axis vis3d;
 axis equal;
-
-subplot(1, 3, 2)
+%%%%%%%%%%%%%%%%%%%
+subplot_4 = subplot(2,3,4)
+copyobj(allchild(subplot_1), subplot_4);
+az = 135;el = 20;
+view(az, el);
+axis vis3d;
+axis equal;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+subplot_2 = subplot(2, 3, 2)
 hold on; 
 [SX,SY,SZ] = sphere(30);
 surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
@@ -88,14 +92,20 @@ xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
 
-% az = 135;el = 30;
 az = 0; el = 0;
-
 view(az, el);
 axis vis3d;
 axis equal;
+%%%%%%%%%%%%%%%%%%%
 
-subplot(1,3,3)
+subplot_5 = subplot(2,3,5)
+copyobj(allchild(subplot_2), subplot_5);
+az = 135;el = 20;
+view(az, el);
+axis vis3d;
+axis equal;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+subplot_3 = subplot(2,3,3)
 hold on;
 [SX,SY,SZ] = sphere(30);
 surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
@@ -112,11 +122,18 @@ xlabel( 'x' );
 ylabel( 'y' );
 zlabel( 'z' );
 
-% az = 135;el = 30;
 az = 0; el = 0;
 view(az, el);
 axis vis3d;
 axis equal;
+%%%%%%%%%%%%%%%%%%%
+subplot_6 = subplot(2,3,6)
+copyobj(allchild(subplot_3), subplot_6);
+az = 135;el = 20;
+view(az, el);
+axis vis3d;
+axis equal;
+
 set(gcf,'units','normalized','outerposition',[0 0 1 1])
 
 hold off;
