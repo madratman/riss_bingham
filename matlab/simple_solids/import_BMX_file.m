@@ -13,9 +13,9 @@ for k=1:2
         BM_result = [];
         BM_result_weights = []
         if (k==1)
-            eval(['BM_current = importdata(''face_' num2str(j) '_init_BM.txt'');'])
+            eval(['BM_current = importdata(''face_' num2str(j) '_init_BMM.txt'');'])
         else
-            eval(['BM_current = importdata(''face_' num2str(j) '_final_BM.txt'');'])
+            eval(['BM_current = importdata(''face_' num2str(j) '_final_BMM.txt'');'])
         end
         
         for i = 1:size(BM_current.data, 1)
@@ -28,9 +28,9 @@ for k=1:2
             d = 4 % For this repo, d == 4 always,. Hardcoding d==4 accounts for possible errors in V/Z. 
 
 %           check for erroneous uniform bings and correct them
-            if (V = zeros(4,3))
+            if (V == zeros(4,3))
                 V = eye(d);
-                V = B.V(:,2:end);
+                V = V(:,2:end);
             end
              
             Z = [BM_current.data(i,9) BM_current.data(i,10) BM_current.data(i,11)];
@@ -59,13 +59,14 @@ for k=1:2
         BM_result_weights = BM_result_weights';
         
         if (k==1)
-            eval(['face_init_' num2str(j) '_fitted_BMM = BM_result;'])
-            eval(['face_init_' num2str(j) '_fitted_BMM_weights = BM_result_weights;'])
+            eval(['face_' num2str(j) '_init_BMM = BM_result;'])
+            eval(['face_' num2str(j) '_init_BMM_weights = BM_result_weights;'])
 
         else
-            eval(['face_final_' num2str(j) '_fitted_BMM = BM_result;'])
-            eval(['face_final_' num2str(j) '_fitted_BMM_weights = BM_result_weights;'])
+            eval(['face_' num2str(j) '_final_BMM = BM_result;'])
+            eval(['face_' num2str(j) '_final_BMM_weights = BM_result_weights;'])
         end
         
     end
 end
+clearvars BM_current BM_current_eval BM_current_weights BM_result BM_result_weights d dF F V i j k test V Z
