@@ -1,13 +1,19 @@
 % Stores the indices of the closest quaternions in training data (2nd argument)when
 % compared to the testing data(1st argument)
+
+% Evaluate errors only for the correct classifications
+% Beware of euler angle range. Can be [-pi, pi] and also [-pi/2, pi2]! And
+% different colums. 
+
 for i = 1:6
-   eval(['closest_quat_indices{i} = find_closest_quaternions(face_' num2str(i) '_init_predicted, face_' num2str(i)  '_init);'])
+%    eval(['closest_quat_indices{i} = find_closest_quaternions(face_' num2str(i) '_init_predicted, face_' num2str(i)  '_init);'])
+   eval(['closest_quat_indices{i} = find_closest_quaternions(pred_face_' num2str(i) '_as_' num2str(i) '_init, face_' num2str(i)  '_init);'])
 end
 
 % Then, for now this is the predicted pose. 
 % Naivest regression eva. 
 for i = 1:6
-   eval(['face_' num2str(i) '_final_predicted_without_vrep = face_' num2str(i) '(cell2mat(closest_quat_indices(i)), :);'])
+   eval(['face_' num2str(i) '_final_predicted_without_vrep = face_' num2str(i) '_final(cell2mat(closest_quat_indices(i)), :);'])
 end
 
 % Now find difference between euler angles of what actually happened in the
@@ -25,25 +31,53 @@ end
 % second, about z third, i.e.:
 % vp = rotate(z,angle(3)) * rotate(y,angle(2)) * rotate(x,angle(1)) * v
 error_cell = []
-for i = 1:6
-    eval(['predicted_euler = EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''zyx'');'])
-    predicted_euler = real(predicted_euler);
-    predicted_euler = permute(predicted_euler,[3 1 2]);
-    predicted_euler = predicted_euler.*(180/pi);
 
-    eval(['actual_euler = EulerAngles(quaternion(face_' num2str(i) '_final_predicted), ''zyx'');'])
-    actual_euler = real(actual_euler);
-    actual_euler = permute(actual_euler,[3 1 2]);
-    actual_euler = actual_euler.*(180/pi);
-   
-    if (i==1|i==2)
-        error = abs(predicted_euler(:,1) - actual_euler(:,1));
-        % Now this error is in the range [0, 2*pi]
+% Because euler angles are so awesome, I had to hardcode different
+% conventions, so that there is no ambiguity for each pair of opposite
+% faces.
+
+for i = 1:6
+%   Only calculate errors for those points which were correctly classified.
+    if(i==1|i==2)
+        eval(['euler_predicted = EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''zyx'');'])
+        eval(['euler_actual = EulerAngles(quaternion(pred_face_' num2str(i) '_as_' num2str(i) '_final), ''zyx'');'])
+    elseif(i==3|i==4)
+        eval(['euler_predicted = EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''xyz'');'])
+        eval(['euler_actual = EulerAngles(quaternion(pred_face_' num2str(i) '_as_' num2str(i) '_final), ''xyz'');'])
+    elseif(i==5|i==6)
+        eval(['euler_predicted = EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''xzx'');'])
+        eval(['euler_actual = EulerAngles(quaternion(pred_face_' num2str(i) '_as_' num2str(i) '_final), ''xzx'');'])
     end
     
-     if (i==3|i==4|i==5|i==6)
-        error = abs(predicted_euler(:,2) - actual_euler(:,2));
+    euler_predicted = real(euler_predicted);% weird bug
+    euler_predicted = permute(euler_predicted,[3 1 2]);
+    euler_predicted = euler_predicted.*(180/pi);
+    euler_actual = real(euler_actual);
+    euler_actual = permute(euler_actual,[3 1 2]);
+    euler_actual = euler_actual.*(180/pi);
+   
+    if(i==1|i==2)
+        % zyx convention            
+        % Pattern is [theta 0 0]         
+        % 1st column. Range is (-pi,pi). Don't know interval closed on which side. 
+        euler_predicted(:,1) = euler_predicted(:,1)+180;
+        euler_actual(:,1) = euler_actual(:,1)+180;
+        error = abs(euler_predicted(:,1) - euler_actual(:,1));
         % Now this error is in the range [0, 2*pi]
+        
+    elseif(i==3|i==4)
+        % xyz convention 
+        % Pattern is [90 0 theta]         
+        euler_predicted(:,3) = euler_predicted(:,3)+180;
+        euler_actual(:,3) = euler_actual(:,3)+180;
+        error = abs(euler_predicted(:,3) - euler_actual(:,3));
+    
+    elseif(i==5|i==6)
+        % xzx convention 
+        % Pattern is [theta 90 90]          
+        euler_predicted(:,1) = euler_predicted(:,1)+180;
+        euler_actual(:,1) = euler_actual(:,1)+180;
+        error = abs(euler_predicted(:,1) - euler_actual(:,1));
     end
     
     for j = 1:length(error)
@@ -70,4 +104,4 @@ end
 error_stats = [error_mean error_mode error_median error_std error_max error_min];
 latex_regression_error_stats(error_stats);
 
-clearvars error predicted_euler actual_euler;
+clearvars error euler_predicted euler_actual;
