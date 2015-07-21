@@ -6,8 +6,8 @@
 % For face 6, we have 756/756. 
 for i = 1:6
     eval(['face_' num2str(i) '_init_predicted = round(face_' num2str(i) '_init_predicted, 4);'])
-    eval(['face_' num2str(i) '_final_predicted = round(face_' num2str(i) '_final_predicted, 4);'])
-    eval(['[pred_face_' num2str(i) '_as_1_final, pred_face_' num2str(i) '_as_2_final, pred_face_' num2str(i) '_as_3_final, pred_face_' num2str(i) '_as_4_final, pred_face_' num2str(i) '_as_5_final, pred_face_' num2str(i) '_as_6_final, pred_face_' num2str(i) '_as_1_init, pred_face_' num2str(i) '_as_2_init, pred_face_' num2str(i) '_as_3_init, pred_face_' num2str(i) '_as_4_init, pred_face_' num2str(i) '_as_5_init, pred_face_' num2str(i) '_as_6_init, total] = classify_quat_orientation(face_' num2str(i) '_init_predicted, face_' num2str(i) '_final_predicted, 0);'])
+    eval(['face_' num2str(i) '_final_predicted_actual = round(face_' num2str(i) '_final_predicted_actual, 4);'])
+    eval(['[pred_face_' num2str(i) '_as_1_final, pred_face_' num2str(i) '_as_2_final, pred_face_' num2str(i) '_as_3_final, pred_face_' num2str(i) '_as_4_final, pred_face_' num2str(i) '_as_5_final, pred_face_' num2str(i) '_as_6_final, pred_face_' num2str(i) '_as_1_init, pred_face_' num2str(i) '_as_2_init, pred_face_' num2str(i) '_as_3_init, pred_face_' num2str(i) '_as_4_init, pred_face_' num2str(i) '_as_5_init, pred_face_' num2str(i) '_as_6_init, total] = classify_quat_orientation(face_' num2str(i) '_init_predicted, face_' num2str(i) '_final_predicted_actual, 0);'])
 end
 
 % No of samples from bing_uniform = 5000
@@ -37,7 +37,9 @@ for i = 1:6
     end
 end        
 
+trace_conf_mat = trace(confusion_matrix);
 confusion_matrix(7, :) = sum(confusion_matrix, 1);
 confusion_matrix(:, 7) = sum(confusion_matrix, 2);
 
 conf_mat_latex(confusion_matrix);
+classification_accuracy = trace_conf_mat/confusion_matrix(7,7)
