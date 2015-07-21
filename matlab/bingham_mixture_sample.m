@@ -33,34 +33,35 @@ else  % no_of_samples >= 100
         no_of_samples_from_component(i) = round(no_of_samples*BM_weights(i));
     end
     no_of_estimated_samples = sum(no_of_samples_from_component);
-    no_of_samples_from_component;
+%     no_of_samples_from_component
+;
     if (no_of_estimated_samples<no_of_samples)
         for i=no_of_estimated_samples:(no_of_samples-1)
-            i;
+%             i;
             j = pmf_sample(BM_weights);
             no_of_samples_from_component(j) = no_of_samples_from_component(j) + 1;
         end
     
     elseif (no_of_estimated_samples>no_of_samples)
         for i=(no_of_samples-1):no_of_estimated_samples
-            i;
+%             i
             j = pmf_sample(BM_weights);
             no_of_samples_from_component(j) = no_of_samples_from_component(j) - 1;
         end
     end
-    no_of_samples_from_component;
+%     no_of_samples_from_component;
+    
     X = [];
-  
     for i=1:no_of_components
         X = [X; bingham_sample(BM(i), no_of_samples_from_component(i))];
-        bingham_sample(BM(i), no_of_samples_from_component(i))
-         no_of_samples_from_component(i)
-         BM(i).V
-        i
-        no_of_samples_from_component(i);
+%         bingham_sample(BM(i), no_of_samples_from_component(i))
+%          no_of_samples_from_component(i)
+%          BM(i).V
+%         i
+%         no_of_samples_from_component(i);
     end 
 
-% Hack to fix bug. TODO. 
+% Hack to fix bug. TODO check 
     % for i=1:no_of_components
     %     for j = 1:no_of_samples_from_component(i)
     %         X = [X; bingham_sample(BM(i), 1)];
@@ -93,4 +94,4 @@ else  % no_of_samples >= 100
 end
 
 X2 = ind;
-X3 = no_of_samples_from_component
+X3 = no_of_samples_from_component;

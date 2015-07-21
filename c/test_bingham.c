@@ -518,14 +518,14 @@ void test_bingham_mixture_sample(int argc, char *argv[])
   }
 
   for (i = 0; i < n; i++) {
-    for (j = 0; j < d+1; j++)
+    for (j = 0; j < d; j++)
       printf("%.4f, ", X[i][j]);
     printf("\n");
-  }
+  
 
   FILE *fp = fopen(argv[3], "w");
   for (i = 0; i < n; i++) {
-    for (j = 0; j < d+1; j++)//d+1 is for the component index
+    for (j = 0; j < d; j++)//d+1 is for the component index
       fprintf(fp, "%.4f, ", X[i][j]);
     fprintf(fp, "\n");
   }
