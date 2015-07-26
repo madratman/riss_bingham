@@ -5,13 +5,14 @@
 % Beware of euler angle range. Can be [-pi, pi] and also [-pi/2, pi2]! And
 % different colums. 
 
-for i = 1:6
+for i = 1:5
+%    eval(['closest_quat_indices{i} = find_closest_quaternions(face_' num2str(i) '_init_predicted, face_' num2str(i)  '_init);'])
    eval(['closest_quat_indices{i} = find_closest_quaternions(pred_face_' num2str(i) '_as_' num2str(i) '_init, face_' num2str(i)  '_init);'])
 end
 
 % Then, for now this is the predicted pose. 
 % Naivest regression eva. 
-for i = 1:6
+for i = 1:5
    eval(['face_' num2str(i) '_final_predicted_without_vrep = face_' num2str(i) '_final(cell2mat(closest_quat_indices(i)), :);'])
 end
 
@@ -33,22 +34,14 @@ end
 % Because euler angles are so awesome, I had to hardcode different
 % conventions, so that there is no ambiguity for each pair of opposite
 % faces.
-
 error_cell = [];
 euler_predicted_cell = [];
 euler_actual_cell = [];
-for i = 1:6
+for i = 1:5
 %   Only calculate errors for those points which were correctly classified.
-    if(i==1|i==2)
-        eval(['euler_predicted = EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''zyx'');'])
-        eval(['euler_actual = EulerAngles(quaternion(pred_face_' num2str(i) '_as_' num2str(i) '_final), ''zyx'');'])
-    elseif(i==3|i==4)
-        eval(['euler_predicted = EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''xyz'');'])
-        eval(['euler_actual = EulerAngles(quaternion(pred_face_' num2str(i) '_as_' num2str(i) '_final), ''xyz'');'])
-    elseif(i==5|i==6)
-        eval(['euler_predicted = EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''xzx'');'])
-        eval(['euler_actual = EulerAngles(quaternion(pred_face_' num2str(i) '_as_' num2str(i) '_final), ''xzx'');'])
-    end
+    
+    eval(['euler_predicted= EulerAngles(quaternion(face_' num2str(i) '_final_predicted_without_vrep), ''xyz'');'])
+    eval(['euler_actual = EulerAngles(quaternion(pred_face_' num2str(i) '_as_' num2str(i) '_final), ''xyz'');'])
     
     euler_predicted = real(euler_predicted);% weird bug
     euler_predicted = permute(euler_predicted,[3 1 2]);
@@ -56,44 +49,44 @@ for i = 1:6
     euler_actual = real(euler_actual);
     euler_actual = permute(euler_actual,[3 1 2]);
     euler_actual = euler_actual.*(180/pi);
-   
-    if(i==1|i==2)
-        % zyx convention            
-        % Pattern is [theta 0 0]         
-        % 1st column. Range is (-pi,pi). Don't know interval closed on which side. 
-        euler_predicted = euler_predicted(:,1);
-        euler_actual = euler_actual(:,1);
-        
-    elseif(i==3|i==4)
-        % xyz convention 
-        % Pattern is [90 0 theta]         
-        euler_predicted = euler_predicted(:,3);
-        euler_actual = euler_actual(:,3);
+
+    euler_predicted(:,3) = euler_predicted(:,3)+180;
+    euler_actual(:,3) = euler_actual(:,3)+180;
+    euler_error = abs(euler_predicted(:,3) - euler_actual(:,3));
+    % Now this error is in the range [0, 2*pi]
     
-    elseif(i==5|i==6)
-        % xzx convention 
-        % Pattern is [theta 90 90]          
-        euler_predicted = euler_predicted(:,1);
-        euler_actual = euler_actual(:,1);
-    end
-        
-    euler_error = euler_predicted - euler_actual;
-    
+    %Circular statistics will take care of the following
+
     error_cell{i} = euler_error;
     euler_predicted_cell{i} = euler_predicted;
     euler_actual_cell{i} = euler_actual;
 end
 
-clearvars error euler_predicted euler_actual;
+% [error_std error_mean error_mode error_median error_max error_min] = deal(zeros(6,1));
+% for i = 1:5
+%     error_std(i,1) = std(cell2mat(error_cell(i)));
+%     error_mean(i,1) = mean(cell2mat(error_cell(i)));
+%     error_mode(i,1) = mode(cell2mat(error_cell(i)));
+%     error_median(i,1) = median(cell2mat(error_cell(i)));
+%     error_max(i,1) = max(cell2mat(error_cell(i)));
+%     error_min(i,1) = min(cell2mat(error_cell(i)));
+% 
+%     count = 1:1:size(cell2mat(error_cell(i)), 1);
+%     plot_error(count, cell2mat(error_cell(i)));
+% end
+% error_stats = [error_mean error_mode error_median error_std error_max error_min];
+% latex_regression_error_stats(error_stats);
+
+clearvars euler_error euler_predicted euler_actual;
 
 stats_actual = [];
 stats_predicted = [];
 stats_error = [];
 % %%%CIRC_STATS%%%
-for i = 1:6
-% i = 1
-    actual_circ = [];
+for i = 1:5
+ actual_circ = [];
     actual_circ = cell2mat(euler_actual_cell(i));
+    actual_circ = actual_circ(:,3);
     actual_circ = circ_ang2rad(actual_circ);
     circ_eval = circ_stats(actual_circ);
     stats_actual(i).mean = circ_rad2ang(circ_eval.mean);
@@ -114,6 +107,7 @@ for i = 1:6
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     predicted_circ = [];
     predicted_circ = cell2mat(euler_predicted_cell(i));
+    predicted_circ = predicted_circ(:,3);
     predicted_circ = circ_ang2rad(predicted_circ);
     circ_eval = circ_stats(predicted_circ);
     stats_predicted(i).mean = circ_rad2ang(circ_eval.mean);

@@ -61,23 +61,25 @@ for i = 1:6
         % zyx convention            
         % Pattern is [theta 0 0]         
         % 1st column. Range is (-pi,pi). Don't know interval closed on which side. 
-        euler_predicted = euler_predicted(:,1);
-        euler_actual = euler_actual(:,1);
+        euler_predicted = euler_predicted(:,1)+180;
+        euler_actual = euler_actual(:,1)+180;
+        euler_error = abs(euler_predicted - euler_actual);
+        % Now this error is in the range [0, 2*pi]
         
     elseif(i==3|i==4)
         % xyz convention 
         % Pattern is [90 0 theta]         
-        euler_predicted = euler_predicted(:,3);
-        euler_actual = euler_actual(:,3);
+        euler_predicted = euler_predicted(:,3)+180;
+        euler_actual = euler_actual(:,3)+180;
+        euler_error = abs(euler_predicted - euler_actual);
     
     elseif(i==5|i==6)
         % xzx convention 
         % Pattern is [theta 90 90]          
-        euler_predicted = euler_predicted(:,1);
-        euler_actual = euler_actual(:,1);
+        euler_predicted = euler_predicted(:,1)+180;
+        euler_actual = euler_actual(:,1)+180;
+        euler_error = abs(euler_predicted - euler_actual);
     end
-        
-    euler_error = euler_predicted - euler_actual;
     
     error_cell{i} = euler_error;
     euler_predicted_cell{i} = euler_predicted;
@@ -137,7 +139,7 @@ for i = 1:6
     for j = 1:length(error_circ_findmax)
         if error_circ_findmax(j) > 180
             error_circ_findmax(j) = 360-error_circ_findmax(j);
-        end
+        end 
     end
 
     error_circ = circ_ang2rad(error_circ);
