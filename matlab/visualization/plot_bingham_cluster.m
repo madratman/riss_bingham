@@ -93,7 +93,7 @@ elseif strcmp(flag_plot_type, 'rotations')
     else
         eval(['plot_bingham_rotations(bingham_cluster(' num2str(i) '), no_of_samples, rand(1,3));'])
     end
-    set(gcf,'units','normalized','outerposition',[0 0 0.5 0.333])
+    set(gcf,'units','normalized','outerposition',[0 0 1 1])
     end
     
 elseif strcmp(flag_plot_type, 'rotations_rand')

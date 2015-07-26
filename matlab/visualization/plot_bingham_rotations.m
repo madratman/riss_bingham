@@ -10,7 +10,7 @@ function plot_bingham_rotations(bing, no_of_samples, color)
 %     Q = [ cos( teta/2 ); v*sin( teta/2 )];
 
 quat = zeros(no_of_samples, 1);
-quat = bingham_sample(bing , no_of_samples);
+quat = bingham_sample(bing, no_of_samples);
 if nargin<3
 	plot_quaternions_rotations(quat)
 else

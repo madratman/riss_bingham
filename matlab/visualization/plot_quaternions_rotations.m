@@ -49,8 +49,12 @@ end
 subplot_1 = subplot(2, 3, 1)
 hold on;
 [SX,SY,SZ] = sphere(30);
-surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
-colormap(.5*gray+.5);
+surf(SX,SY,SZ, 'EdgeColor', 'none');
+% surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
+
+% colormap(.5*gray+.5);
+% sphere;
+colormap(gray)
 for i = 1:size(quat, 2)
 	if nargin<2
 		plot3(v2(1, i), v2(2, i), v2(3, i), '.', 'MarkerSize', 5); 
