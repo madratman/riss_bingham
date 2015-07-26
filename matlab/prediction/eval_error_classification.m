@@ -7,7 +7,7 @@
 for i = 1:6
     eval(['face_' num2str(i) '_init_predicted = round(face_' num2str(i) '_init_predicted, 4);'])
     eval(['face_' num2str(i) '_final_predicted_actual = round(face_' num2str(i) '_final_predicted_actual, 4);'])
-    eval(['[pred_face_' num2str(i) '_as_1_final, pred_face_' num2str(i) '_as_2_final, pred_face_' num2str(i) '_as_3_final, pred_face_' num2str(i) '_as_4_final, pred_face_' num2str(i) '_as_5_final, pred_face_' num2str(i) '_as_6_final, pred_face_' num2str(i) '_as_1_init, pred_face_' num2str(i) '_as_2_init, pred_face_' num2str(i) '_as_3_init, pred_face_' num2str(i) '_as_4_init, pred_face_' num2str(i) '_as_5_init, pred_face_' num2str(i) '_as_6_init, total] = classify_quat_orientation(face_' num2str(i) '_init_predicted, face_' num2str(i) '_final_predicted_actual, 0);'])
+    eval(['[pred_face_' num2str(i) '_as_1_final, pred_face_' num2str(i) '_as_2_final, pred_face_' num2str(i) '_as_3_final, pred_face_' num2str(i) '_as_4_final, pred_face_' num2str(i) '_as_5_final, pred_face_' num2str(i) '_as_6_final, pred_face_' num2str(i) '_as_1_init, pred_face_' num2str(i) '_as_2_init, pred_face_' num2str(i) '_as_3_init, pred_face_' num2str(i) '_as_4_init, pred_face_' num2str(i) '_as_5_init, pred_face_' num2str(i) '_as_6_init, total] = classify_quat_orientation_cube(face_' num2str(i) '_init_predicted, face_' num2str(i) '_final_predicted_actual);'])
 end
 
 % No of samples from bing_uniform = 5000
