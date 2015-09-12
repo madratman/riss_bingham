@@ -1,1 +1,0 @@
-!synclient HorizTwoFingerScroll=0

@@ -1,0 +1,20 @@
+citHeader("To cite NPCirc in publications use:")
+
+citEntry(entry = "Article",
+  title        = "{NPCirc}: An {R} Package for Nonparametric Circular Methods",
+  author       = personList(as.person("Mar{\\'i}a Oliveira"),
+                   as.person("Rosa M. Crujeiras"),
+                   as.person("Alberto Rodr{\\'i}guez-Casal")),
+  journal      = "Journal of Statistical Software",
+  year         = "2014",
+  volume       = "61",
+  number       = "9",
+  pages        = "1--26",
+  url          = "http://www.jstatsoft.org/v61/i09/",
+
+  textVersion  =
+  paste("Maria Oliveira, Rosa M. Crujeiras, Alberto Rodriguez-Casal (2014).",
+        "NPCirc: An R Package for Nonparametric Circular Methods.",
+        "Journal of Statistical Software, 61(9), 1-26.",
+        "URL http://www.jstatsoft.org/v61/i09/.")
+)
