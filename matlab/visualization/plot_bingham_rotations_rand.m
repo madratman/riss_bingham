@@ -21,16 +21,26 @@ quat = quat';
 n=1;
 theta=pi*rand(1,n);
 phi=2*pi*rand(1,n);
-[x,y,z]=sph2cart(theta,phi,ones(1,n));
+[x,y,z]=sph2cart(theta,phi,0.9);
+
+
+% slam hacks
+% x=0;y=0;z=1;
+r= 1.0
+x = r*-1/sqrt(2);
+y= r*-1/sqrt(3);
+z= r*1/sqrt(6);
 
 
 % v = vector; 
 v = [x, y, z]';
 v2 = zeros(3, size(quat, 2));
 
-[SX,SY,SZ] = sphere(30);
-surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', .3);
-colormap(.5*gray+.5);
+[SX,SY,SZ] = sphere(100);
+surf(SX,SY,SZ, 'EdgeColor', 'none', 'FaceAlpha', 1);
+% colormap(.5*gray+.5);
+colormap(gray);
+
 
 axis vis3d;
 axis equal;
@@ -45,8 +55,14 @@ end
 
 hold on 
 for i = 1:size(quat, 2)
-	plot3(v2(1, i), v2(2, i), v2(3, i), '.', 'MarkerSize', 5); 
+	plot3(v2(1, i), v2(2, i), v2(3, i), '.', 'MarkerSize', 10, 'Color', 'black'); 
 end
 
-plot3(v(1), v(2), v(3), '.', 'MarkerSize', 30); 
+theta=pi;
+phi=2*pi;
+[x,y,z]=sph2cart(theta,phi,ones(1,n));
+
+plot3(v(1), v(2), v(3)+0.1, '.', 'MarkerSize', 50, 'Color', 'c'); 
+
+% plot3(v(1), v(2), v(3), '.', 'MarkerSize', 50, 'Color', 'y'); 
 

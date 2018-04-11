@@ -22,5 +22,5 @@ for j = 1:length(bingham_cluster)
 %          i+last
     end 
     length(to_plot)
-    plot_quaternions_rotations(to_plot, color_cell{j});
+    plot_normals_slam(to_plot, color_cell{j});
 end

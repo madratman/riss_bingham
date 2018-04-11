@@ -16,7 +16,7 @@ function plot_quaternions_rotations(quat, color)
 %I should be able to visualize the distinct patterns for each "cluster" 
 % of quaternions corresponding to all orientations of a face 
 quat = quat';
-% v = [1 0 0; 0 1 0; 0 0 1]';
+% v = [1 0 0; 0 1 0; 0 0 1]';fi
 
 rt_2 = 1/sqrt(2);
 rt_3 = 1/sqrt(3);

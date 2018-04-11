@@ -12,7 +12,7 @@ function plot_quaternions_rotations_rand(quat, vector)
 
 % size(quat, 2)
 % v = rand(3, 1);
-quat = quat';
+% quat = quat';
 
 if nargin  ==1 
 n=1;

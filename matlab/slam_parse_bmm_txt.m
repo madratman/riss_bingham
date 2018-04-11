@@ -10,7 +10,7 @@ Z_all={};
 F_all={};
 
 while ischar(tline)
-    if ctr==0
+    if ctr==-1
         weights_cell = strsplit(tline, ' ');
         bing_mix_model_weights = cellfun(@str2double, weights_cell);
         bing_mix_model_weights = bing_mix_model_weights(1:end-1);
